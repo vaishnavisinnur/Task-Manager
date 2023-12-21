@@ -1,0 +1,17 @@
+.custom-search-form {
+    margin-left: auto;
+  
+    .input-group {
+      align-items: stretch;
+  
+      .input-group-prepend {
+        span {
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+  
+  

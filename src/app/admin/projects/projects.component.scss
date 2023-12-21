@@ -1,0 +1,67 @@
+.table-container {
+    margin: 50px auto; /* Center the table horizontally */
+    width: 80%; /* Set a maximum width for the table */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Add borders to cells */
+    text-align: left;
+  }
+  
+  thead th {
+    background-color: #f2f2f2; /* Gray background for header cells */
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
+  }
+  .form-group.row.mt-3.mb-3 {
+    .col-sm-8 input[disabled] {
+      pointer-events: none;
+      background-color: #f0f0f0; // You can customize the background color when disabled
+    }
+  }
+  .button-space {
+    margin-right: 10px; /* Adjust the margin-right value based on your preference */
+  }
+  
+  .container {
+    margin-top: 2rem;
+  
+    .row {
+      button {
+        width: auto; 
+        margin-bottom: 0.2px;
+        margin-top: 2rem;// Adjust margin as needed for spacing
+      }
+  
+      .table-container {
+        width: 100%;
+        margin-top: 0.5rem; // Adjust margin as needed to add space below the button
+      }
+    }
+  
+    .mt-4 {
+      margin-top: 2rem;
+    }
+  }
+  /* Your component's CSS or global styles */
+.table-row {
+  margin-bottom: 0.2rem; /* Adjust the margin-bottom as needed */
+}
+
+
+
+
+
+
+  
+  
+  
+  
