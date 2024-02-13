@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit
 {
   loginViewModel: LoginViewModel = new LoginViewModel();
   loginError: string = "";
-
   constructor(private loginService: LoginService, private router: Router) 
   {
   }
@@ -21,12 +20,13 @@ export class LoginComponent implements OnInit
   {
   }
 
-  onLoginClick(event: any)
+  onLoginClick()
   {
     this.loginService.Login(this.loginViewModel).subscribe(
       (response) =>
       {
-        this.router.navigateByUrl("/dashboard");
+        this.loginService.currentUserName = response.username;
+        this.router.navigateByUrl("/dashboard" ,  { state: { responseData: response } });
       },
       (error) =>
       {

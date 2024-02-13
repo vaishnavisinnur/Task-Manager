@@ -7,12 +7,35 @@ import { DashboardService } from '../dashboard.service';
 import { ProjectsComponent } from './projects/projects.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { TeamSizeValidatorDirective } from '../team-size-validator.directive';
+import { ClientLocationStatusValidatorDirective } from '../client-location-status-validator.directive';
+import { ProjectIDUniqueValidatorDirective } from '../project-id-unique-validator.directive';
+import { ProjectComponent } from './project/project.component';
+import { CheckBoxPrinterComponent } from './check-box-printer/check-box-printer.component';
+import { NumberToWordsPipe } from '../number-to-words.pipe';
+
+import { FilterPipe } from '../filter.pipe';
+import { PagingPipe } from '../paging.pipe';
+
+
+
 @NgModule({
   declarations: [
     DashboardComponent,
     AboutComponent,
     MyProfileComponent,
     ProjectsComponent,
+    TeamSizeValidatorDirective,
+    ClientLocationStatusValidatorDirective,
+    ProjectIDUniqueValidatorDirective,
+    ProjectComponent,
+    CheckBoxPrinterComponent,
+    NumberToWordsPipe,
+    FilterPipe,
+    PagingPipe
+   
+   
+ 
     
   ],
   imports: [
@@ -24,7 +47,10 @@ import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsMod
     DashboardComponent,
     AboutComponent,
     MyProfileComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    TeamSizeValidatorDirective,
+    ClientLocationStatusValidatorDirective, 
+   ProjectIDUniqueValidatorDirective
   ],
   providers:[DashboardService]
 

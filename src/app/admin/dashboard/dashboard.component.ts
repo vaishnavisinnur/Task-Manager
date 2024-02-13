@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit
 
   ngOnInit()
   {
+    console.log('DashboardComponent initialized.');
     
     this.Designation = 'Team Leader';
     this.Username = 'Vaishnavi Sinnur';

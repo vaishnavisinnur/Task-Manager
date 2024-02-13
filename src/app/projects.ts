@@ -8,8 +8,8 @@ export class Projects
     teamSize: number | any;
     active: boolean | any;
     status: string | any;
-    clientLocationID: number | any;
-    clientLocation: ClientLocation | any;
+    clientLocationID: number | any;               //respresents actual value of foreign key
+    clientLocation: ClientLocation | any;         // this contains the parent record including clientLocationID and clientLocationName
 
     constructor()
     {
