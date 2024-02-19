@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ProjectsService } from 'src/app/projects.service';
-import { Projects } from 'src/app/projects';
+import { ProjectsService } from 'src/app/services/projects.service';
+import { Projects } from 'src/app/models/projects';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ClientLocationService } from 'src/app/client-location.service';
-import { ClientLocation } from 'src/app/client-location';
+import { ClientLocationService } from 'src/app/services/client-location.service';
+import { ClientLocation } from 'src/app/models/client-location';
 import * as $ from "jquery";
 import { ProjectComponent } from '../project/project.component';
 import { FilterPipe } from 'src/app/filter.pipe';

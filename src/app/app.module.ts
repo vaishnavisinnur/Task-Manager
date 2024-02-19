@@ -1,26 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, } from '@angular/common/http';
 import { AdminModule } from './admin/admin.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { LoginComponent } from './login/login.component';
-import { JwtInterceptorService } from './jwt-interceptor.service';
-import { JwtUnAuthorizedInterceptorService } from './jwt-un-authorized-interceptor.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { AlertDirective } from './alert.directive';
-import { RepeaterDirective } from './repeater.directive';
-
-
-
-
-
-
+import { LoginComponent } from './components/login/login.component';
+import { JwtInterceptorService } from './interceptors/jwt-interceptor.service';
+import { JwtUnAuthorizedInterceptorService } from './interceptors/jwt-un-authorized-interceptor.service';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { AlertDirective } from './directives/alert.directive';
+import { RepeaterDirective } from './directives/repeater.directive';
+import { EmployeeModule } from './employee/employee.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './pipes/shared.module';
 
 
 
@@ -31,22 +24,25 @@ import { RepeaterDirective } from './repeater.directive';
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    TasksComponent,
     AlertDirective,
     RepeaterDirective,
-
+  
   
    
- 
+   
+   
     
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
     AdminModule,
-    ReactiveFormsModule,
+    EmployeeModule,
+    BrowserAnimationsModule,
+    SharedModule,
+    
+    
+
     JwtModule.forRoot({
       config:{
         tokenGetter:() =>{

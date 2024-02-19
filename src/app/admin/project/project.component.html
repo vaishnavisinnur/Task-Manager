@@ -1,4 +1,5 @@
-<div class="card card-primary">
+<div class="card card-primary mb-1">
+
   <div class="card-header">
     <div class="row">
       <div class="col-11">
@@ -10,32 +11,39 @@
       </div>
     </div>
   </div>
-  
-    <div class="card-body">
-      <table class="table table-borderless"  [hidden]="hideDetails" #tbl>
-        <tr>
-          <th>Date of Start</th>
-          <td>{{project.dateOfStart}}</td>
-        </tr>
-        <tr>
-          <th>Team Size</th>
+
+  <div class="card-body">
+    <table class="table table-borderless table-sm" [hidden]="hideDetails" #tbl>
+      <tr>
+        <th>Date of Start</th>
+        <td>{{project.dateOfStart}}</td>
+      </tr>
+      <tr>
+        <th>Team Size</th>
+        <td>
           <span>{{project.teamSize}} </span>
-          <span class="text-info">{{project.teamSize | numberToWords: ' and '}}</span>
-        </tr>
-        <tr>
-          <th>Client Location</th>
-          <td>{{project.clientLocation?.clientLocationName}}</td>
-        </tr>
-        <tr>
-          <th>Status</th>
-          <td>{{project.status}}</td>
-        </tr>
-      </table>
-    </div>
-  
-    <div class="card-footer">
-      <button class="btn btn-info" (click)="onEditClick($event, i)" data-toggle="modal" data-target="#editModal">Edit</button>&nbsp;
-      <button class="btn btn-warning" (click)="onDeleteClick($event, i)" data-toggle="modal" data-target="#deleteModal">Delete</button>
-    </div>
+          <span class="text-info">{{project.teamSize | numberToWords}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th>Client Location</th>
+        <td>{{project.clientLocation?.clientLocationName}}</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td>{{project.status}}</td>
+      </tr>
+    </table>
   </div>
-  
+
+  <div class="card-footer">
+    <button class="btn btn-info" (click)="onEditClick($event, i)" data-toggle="modal"
+      data-target="#editModal">Edit</button>&nbsp;
+    <button class="btn btn-warning" (click)="onDeleteClick($event, i)" data-toggle="modal"
+      data-target="#deleteModal">Delete</button>
+
+      <a class="btn btn-primary" [routerLink]=" [ '/admin', 'project', 'view', project.projectID] ">Learn More</a>
+
+    <!-- /admin/projects/view/1 -->
+  </div>
+</div>

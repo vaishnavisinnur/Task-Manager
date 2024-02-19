@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, EventEmitter, Output, ContentChild, SimpleChanges, OnChanges, DoCheck, AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Project } from 'src/app/project';
-import { ProjectsService } from 'src/app/projects.service';
+import { Component, OnInit, Input, EventEmitter, Output, ContentChild, ContentChildren, QueryList, SimpleChanges, OnChanges, DoCheck, AfterContentChecked, AfterContentInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Projects } from 'src/app/models/projects';
+import { ProjectsService } from 'src/app/services/projects.service';
 import { CheckBoxPrinterComponent } from '../check-box-printer/check-box-printer.component';
 
 @Component({
@@ -8,142 +9,92 @@ import { CheckBoxPrinterComponent } from '../check-box-printer/check-box-printer
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
-export class ProjectComponent implements OnInit,OnChanges,DoCheck,AfterContentChecked,AfterContentInit,AfterViewChecked,AfterViewInit
-{
-  @Input("currentProject") project: Project | any = null;
+export class ProjectComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
+  @Input("currentProject") project: Projects | any;
   @Input("recordIndex") i: number = 0;
 
-  
   @Output() editClick = new EventEmitter();
   @Output() deleteClick = new EventEmitter();
+
+  MySubscription: Subscription | any;
+
   hideDetails: boolean = false;
-  MySubscription: any;
 
-
-  constructor(public projectsService: ProjectsService)
-  {
-  }
-  ngAfterViewInit(): void {
-    console.info(".....ngAfterViewInit called")
-  }
-  ngAfterViewChecked(): void {
-    console.info(".....ngAfterviewChecked called")
-  }
-  ngAfterContentInit(): void {
-   console.info(".....ngAfterContentInit called")
-   console.log(this.selectionBox.toArray());
-  }
-  ngAfterContentChecked(): void {
-   console.info(".....ngAfterContentChecked called")
-  }
-  ngDoCheck(): void {
-    console.info("......DoCheck method Called ")
+  constructor(public projectsService: ProjectsService) {
   }
 
+  ngOnChanges(simpleChanges: SimpleChanges) {
+    //console.info("--------------ngOnChanges called");
 
-
-  ngOnChanges(simpleChanges: SimpleChanges)
-  {
-    console.info("--------------ngOnChanges called");
-
-    for (let propName in simpleChanges)
-    {
+    for (let propName in simpleChanges) {
       let chng = simpleChanges[propName];
       let cur = JSON.stringify(chng.currentValue);
       let prev = JSON.stringify(chng.previousValue);
-      console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+      //console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
     }
 
-    if (simpleChanges["project"])
-    {
-      this.project.teamSize += 1;
-    }
-  }
-
-  @ViewChild("tbl") tbl : ElementRef | any = null;
-
-
-  ngOnInit(){
-    console.info("...ngOnInit called")
-  }
-
-
- onEditClick(event: any, i: number)
-  {
-    this.editClick.emit({ event, i});
-  }
-
-  onDeleteClick(event: any, i: number)
-  {
-    this.deleteClick.emit({ event, i});
-  }
-  
-  toggleDetails()
-  {
-    this.hideDetails = !this.hideDetails;
-  }
-  
-
-
-
-  
-  @ContentChild("selectionBox") selectionBox: CheckBoxPrinterComponent | any = null;
-
-  isAllCheckedChange(b: boolean)
-  {
-    if (b)
-    {
-      this.selectionBox.check();
-    }
-    else
-    {
-      this.selectionBox.unCheck();
+    if (simpleChanges["project"]) {
+      //this.project.teamSize += 1;
     }
   }
 
-//                    or
+  ngOnInit() {
+    //console.info("--------------ngOnInit called");
+    this.MySubscription = this.projectsService.MySubject.subscribe((hide: boolean) => {
+      this.hideDetails = hide;
+    });
+  }
 
-  // @ContentChildren("selectionBox") selectionBoxes: QueryList<CheckBoxPrinterComponent> | any = null;
+  ngDoCheck() {
+    //console.info("--------------ngDoCheck called");
+  }
 
-  // isAllCheckedChange(b: boolean)
-  // {
-  //   let selectionBox = this.selectionBoxes.toArray();
-  //   if (b)
-  //   {
-  //     for (let i = 0; i < selectionBox.length; i++)
-  //     {
-  //       selectionBox[i].check();
-  //     }
-  //   }
-  //   else
-  //   {
-  //     for (let i = 0; i < selectionBox.length; i++)
-  //     {
-  //       selectionBox[i].unCheck();
-  //     }
-  //   }
-  // }
+  ngAfterContentInit() {
+    //console.info("--------------ngAfterContentInit called");
+    //console.log(this.selectionBoxes.toArray());
+  }
+
+  ngAfterContentChecked() {
+    //console.info("--------------ngAfterContentChecked called");
+  }
+
+  ngAfterViewInit() {
+    //console.info("--------------ngAfterViewInit called");
+    //console.log(this.tbl);
+  }
+
+  @ViewChild("tbl") tbl: ElementRef | any = null;
+
+  ngAfterViewChecked() {
+    //console.info("--------------ngAfterViewChecked called");
+  }
+
+  onEditClick(event: any, i: number) {
+    this.editClick.emit({ event, i });
+  }
+
+  onDeleteClick(event: any, i: number) {
+    this.deleteClick.emit({ event, i });
+  }
+
+  ngOnDestroy() {
+    //console.info("--------------ngOnDestroy called");
+    this.MySubscription.unsubscribe();
+  }
+
+  @ContentChildren("selectionBox") selectionBoxes: QueryList<CheckBoxPrinterComponent> | any = null;
+
+  isAllCheckedChange(b: boolean) {
+    let selectionBox = this.selectionBoxes.toArray();
+    if (b) {
+      for (let i = 0; i < selectionBox.length; i++) {
+        selectionBox[i].check();
+      }
+    }
+    else {
+      for (let i = 0; i < selectionBox.length; i++) {
+        selectionBox[i].unCheck();
+      }
+    }
+  }
 }
-            
-
-
-
-
-
-                                        // HIDESHOW FUNCTIONALITY USING RxJS SUBJECT
-
-
-  // ngOnDestroy()
-  // {
-  //   this.MySubscription.unsubscribe();
-  // }
-
-
-                                        // CUSTOM RxJS OBSERVABLES
-
-  // ngOnInit()
-  // {
-  //   this.projectsService.MyObservable.subscribe((hide: boolean) => {
-  //     this.hideDetails = hide;
-  //   });
-  // }

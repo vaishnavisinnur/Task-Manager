@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Project } from './project';
+
 
 @Pipe({
   name: 'filter',
   pure:false
 })
 export class FilterPipe implements PipeTransform {
-  transform(value: Project[] | any, searchBy: string, searchText: string): any
+  transform(value: any[] | any, searchBy: string, searchText: string): any
   {
     if (value == null)
     {
